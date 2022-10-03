@@ -1,11 +1,11 @@
 import React, { useLayoutEffect, useMemo, useRef } from "react";
-import { createNoise2D } from 'simplex-noise';
+import { createNoise2D } from "simplex-noise";
 import * as THREE from "three";
 
-const Ground = () => {
-  const simplex = useMemo(() => new createNoise2D(), []);
+const Ground: React.FC = () => {
+  const simplex = useMemo(() => createNoise2D(), []);
 
-  const terrain = useRef(null);
+  const terrain = useRef<THREE.PlaneGeometry>(null!);
 
   useLayoutEffect(() => {
     let pos = terrain.current.getAttribute("position");

@@ -1,13 +1,11 @@
 import React, { Suspense } from "react";
-import * as THREE from "three";
 import { Loader, OrbitControls, softShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import Ground from './components/Ground';
-
+import Ground from "./components/Ground";
+import * as THREE from "three";
 
 softShadows();
 function App() {
-
   const hemiLight = new THREE.HemisphereLight(0xffffff, 0xfffffff, 0.6);
   hemiLight.color.setHSL(0.6, 1, 0.6);
   hemiLight.groundColor.setHSL(0.095, 1, 0.75);
@@ -37,9 +35,21 @@ function App() {
 
   return (
     <div className="w-full h-screen bg-fuchsia-100">
-      <Canvas shadows>
-        <hemisphereLight {...hemiLight} />/
-        <directionalLight {...light} />
+      <Canvas shadows camera={camera}>
+        <hemisphereLight args={[hemiLight.color, hemiLight.groundColor, 0.6]} />
+        <directionalLight
+          castShadow
+          position={light.position}
+          intensity={light.intensity}
+          shadow-mapSize-width={light.shadow.mapSize.width}
+          shadow-mapSize-height={light.shadow.mapSize.height}
+          shadow-camera-near={light.shadow.camera.near}
+          shadow-camera-far={light.shadow.camera.far}
+          shadow-camera-left={light.shadow.camera.left}
+          shadow-camera-right={light.shadow.camera.right}
+          shadow-camera-top={light.shadow.camera.top}
+          shadow-camera-bottom={light.shadow.camera.bottom}
+        />
         <ambientLight intensity={0.1} />
         <OrbitControls />
         <Suspense fallback={null}>
