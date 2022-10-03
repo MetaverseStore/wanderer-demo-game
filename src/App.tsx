@@ -1,8 +1,11 @@
 import React, { Suspense } from "react";
 import { Loader, OrbitControls, softShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import Ground from "./components/Ground";
 import * as THREE from "three";
+import Nature from "./components/Nature";
+import Terrain from "./components/Terrain";
+
+
 
 softShadows();
 function App() {
@@ -53,7 +56,8 @@ function App() {
         <ambientLight intensity={0.1} />
         <OrbitControls />
         <Suspense fallback={null}>
-          <Ground />
+          <Terrain />
+          <Nature />
         </Suspense>
         <fog attach="fog" color="#ffffff" near={50} far={300} />
       </Canvas>
