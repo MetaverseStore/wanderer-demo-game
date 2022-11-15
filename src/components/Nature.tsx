@@ -8,20 +8,21 @@ const Nature = () => {
     const fast_urban_tree = useGLTF('./3dModels/nature/fast_urban_tree.glb');
     const platano_tree = useGLTF('./3dModels/nature/platano_tree.glb');
     const rock = useGLTF('./3dModels/nature/rock.glb');
+    const portal = useGLTF('./3dModels/nature/portal.glb');
 
-    old_tree.scene.scale.setScalar(5);
+    old_tree.scene.scale.setScalar(15);
     old_tree.scene.traverse((child) => {
         child.castShadow = true;
         child.receiveShadow = true;
     });
 
-    fast_urban_tree.scene.scale.setScalar(0.03);
+    fast_urban_tree.scene.scale.setScalar(0.1);
     fast_urban_tree.scene.traverse((child) => {
         child.castShadow = true;
         child.receiveShadow = true;
     });
 
-    platano_tree.scene.scale.setScalar(0.03);
+    platano_tree.scene.scale.setScalar(0.1);
     platano_tree.scene.traverse((child) => {
         child.castShadow = true;
         child.receiveShadow = true;
@@ -32,6 +33,13 @@ const Nature = () => {
         child.castShadow = true;
         child.receiveShadow = true;
     });
+
+    portal.scene.scale.setScalar(0.1);
+    portal.scene.traverse((child) => {
+        child.castShadow = true;
+        child.receiveShadow = true;
+    });
+    portal.scene.position.set(0, -2, 0);
 
 
     const objects: JSX.Element[] = [];
@@ -77,6 +85,9 @@ const Nature = () => {
             {objects.map((obj: JSX.Element) => {
                 return obj;
             })}
+            <primitive
+                object={portal.scene}
+            />
         </group>
     )
 }
