@@ -1,6 +1,8 @@
 import Controls from "./components/Controls";
 import Canva from "./Canva";
 import { useState, useEffect } from "react";
+import ControlsImage from "./images/controls.png";
+import { IoLogoGameControllerB } from 'react-icons/io'
 
 
 function App() {
@@ -9,6 +11,7 @@ function App() {
   const [attributes, setAttributes] = useState(null);
   const [characterLoaded, setCharacterLoaded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showControlsModal, setShowControlsModal] = useState(false)
 
   const handleMetastoreCharacter = () => {
     setShowModal(true);
@@ -42,7 +45,7 @@ function App() {
   return (
     <div className="w-full h-screen bg-fuchsia-100 relative">
       {!characterLoaded && (
-        <div className="flex flex-col h-screen items-center bg-no-repeat bg-cover	 justify-center bg-[url('https://www.dsogaming.com/wp-content/uploads/2014/03/The-Forest-feature.jpg')]">
+        <div className="flex flex-col h-screen items-center bg-no-repeat bg-cover	 justify-center bg-[url('./images/bg_image.jpeg')]">
           <h2 className="text-6xl font-bold font-[Bungee] bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-lime-500">Wanderer</h2>
           <div className="flex items-center mt-6">
             <button
@@ -72,8 +75,37 @@ function App() {
               </div>
             </>
           )}
+
+          {showControlsModal && (
+            <>
+              <div className="absolute z-50 p-0 sm:p-10 xl:p-20 overflow-hidden top-1/2 rounded-2xl left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] bg-[#111827DE] flex items-center justify-center">
+                <img
+                  src={ControlsImage}
+                  alt="game controls"
+                />
+              </div>
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+              <div
+                className="absolute bg-black bg-opacity-80 top-10 right-10  z-50 px-4 py-2 rounded-lg cursor-pointer"
+                onClick={() => setShowControlsModal(false)}
+              >
+                <p className="text-white">Close</p>
+              </div>
+            </>
+          )}
+
+          {!showModal && (
+            <button
+              onClick={() => setShowControlsModal(true)}
+              className="text-white font-bold py-2 px-4 rounded m-2 absolute bottom-10 right-10 bg-black flex items-center"
+            >
+              <IoLogoGameControllerB className="text-lg mr-2" />
+              Controls
+            </button>
+          )}
         </div>
       )}
+
       {characterLoaded && (
         <>
           <Controls setCharacterLoaded={setCharacterLoaded} attributes={attributes} />
@@ -82,6 +114,7 @@ function App() {
           />
         </>
       )}
+
     </div>
   );
 }
